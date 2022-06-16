@@ -4,13 +4,11 @@ package shadertools;
 //Modified by Jonnycat 
 //Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;  
-import openfl.display._internal.ShaderBuffer; 
 using StringTools;
 
 class FlxShaders extends OriginalFlxShader {
     public var custom:Bool = false;
     public var save:Bool = true; 
-    public var ShaderBuffer:Dynamic = {}; 
 	
     public override function new(?save:Bool) {
         if (save != null) this.save = save;
