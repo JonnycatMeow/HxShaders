@@ -1,4 +1,4 @@
-#  FNFShaderFix
+#  HxShaders
 
 
 ![shadertools-removebg-preview](https://user-images.githubusercontent.com/82131956/162606227-51408eca-2ee8-410b-9769-a717b02a6857.png)
