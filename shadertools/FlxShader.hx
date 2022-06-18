@@ -41,7 +41,7 @@ class FlxShader extends FNF {
 		
         @:privateAccess
         var gl = __context.gl;
-		
+	//openGl Version 
         var prefix = "#version 300 es\n";
 
         
