@@ -41,10 +41,13 @@ class FlxShader extends FNF {
 		
         @:privateAccess
         var gl = __context.gl;
-	//openGl Version 
-        var prefix = "#version 300 es\n";
-
-        
+	//openGl Version  
+	   //note:#version 130 is for computers,web and #version 300 es is for android  
+	  #if android
+          var prefix = "#version 300 es\n";
+          #else 
+          var prefix = "#version 130\n"; 
+	  #end 
         prefix += "#ifdef GL_ES\n"
             + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
                 + "precision highp float;\n"
