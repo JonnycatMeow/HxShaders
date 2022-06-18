@@ -34,7 +34,7 @@ class FlxShader extends FNF {
         }
     }
 
-    public function initGLforce() {
+    @:noCompletion public function initGLforce() {
        initGood(glFragmentSource, glVertexSource);
     }
     @:noCompletion private function initGood(glFragmentSource:String, glVertexSource:String) {
