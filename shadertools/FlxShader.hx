@@ -42,12 +42,10 @@ class FlxShader extends FNF {
         @:privateAccess
         var gl = __context.gl;
 	//openGl Version  
-	   //note:#version 130 is for computers,web and #version 300 es is for android  
-	  #if android
-          var prefix = "#version 300 es\n";
-          #else 
-          var prefix = "#version 130\n"; 
-	  #end 
+	   //i think i made it more stable?
+	  
+        var prefix = "#version 110\n"; 
+	  
         prefix += "#ifdef GL_ES\n"
             + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
                 + "precision highp float;\n"
@@ -57,11 +55,10 @@ class FlxShader extends FNF {
             + "#endif\n\n";
         
 
-        prefix += 'out vec4 output_FragColor;\n';
-        var vertex = prefix + glVertexSource.replace("attribute", "in").replace("varying", "out").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
-        var fragment = prefix + glFragmentSource.replace("varying", "in").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
-        
-        var id = vertex + fragment;
+       var vertex = prefix + glVertexSource;
+       var fragment = prefix + glFragmentSource;
+	    
+       var id = vertex + fragment;
 		
 
         @:privateAccess
