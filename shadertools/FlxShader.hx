@@ -2,18 +2,15 @@ package shadertools;
 
 //testing jigsaw version https://github.com/jigsaw-4277821/VsDave-With-Android-Support/blob/main/source/FlxShader.hx 
 //Modified by Jonnycat 
-//Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2 
-import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;  
+//Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2   
+
+import flixel.system.FlxAssets.FlxShader as FNF;
+
 using StringTools;
 
-class FlxShaders extends OriginalFlxShader {
-    public var custom:Bool = false;
-    public var save:Bool = true; 
-	
-    public override function new(?save:Bool) {
-        if (save != null) this.save = save;
-        super();
-    }
+// goddamn prefix
+class FlxShader extends FNF {
+
     @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
@@ -38,32 +35,16 @@ class FlxShaders extends OriginalFlxShader {
     }
 
     public function initGLforce() {
-        if (!custom) initGood(glFragmentSource, glVertexSource);
+       initGood(glFragmentSource, glVertexSource);
     }
     public function initGood(glFragmentSource:String, glVertexSource:String) {
-        // try {
-
-        // } catch(e:Exception) {
-        //     trace(e);
-        //     trace(e.message);
-        //     trace(e.stack);
-        //     trace(e.details());
-        // }
 		
         @:privateAccess
         var gl = __context.gl;
 		
-		
-
-        #if android
         var prefix = "#version 300 es\n";
-        #else
-        var prefix = "#version 120\n";
-        #end
 
-        #if (js && html5)
-        prefix += (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
-        #else
+        
         prefix += "#ifdef GL_ES\n"
             + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
                 + "precision highp float;\n"
@@ -71,24 +52,17 @@ class FlxShaders extends OriginalFlxShader {
                 + "precision mediump float;\n"
                 + "#endif\n" : "precision lowp float;\n")
             + "#endif\n\n";
-        #end
+        
 
-
-        #if android
         prefix += 'out vec4 output_FragColor;\n';
         var vertex = prefix + glVertexSource.replace("attribute", "in").replace("varying", "out").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
         var fragment = prefix + glFragmentSource.replace("varying", "in").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
-        #else
-        var vertex = prefix + glVertexSource;
-        var fragment = prefix + glFragmentSource;
-        #end
         
         var id = vertex + fragment;
 		
-		#if trace_everything trace('Should save: $save'); #end
 
         @:privateAccess
-        if (__context.__programs.exists(id) && save)
+        if (__context.__programs.exists(id))
         {   
             
 		    
@@ -110,19 +84,9 @@ class FlxShaders extends OriginalFlxShader {
             
 
             @:privateAccess
-            if (save) __context.__programs.set(id, program);
+            __context.__programs.set(id, program);
         }
 		
-		#if trace_everything
-			/*
-			@:privateAccess
-			trace(__context);
-			@:privateAccess
-			trace(__context.__programs);
-			@:privateAccess
-			trace(program.__glProgram);
-			*/
-		#end
 		
         if (program != null)
         {
@@ -196,4 +160,4 @@ class FlxShaders extends OriginalFlxShader {
             }
         }
     }
-} 
+}
