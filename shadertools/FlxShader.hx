@@ -34,7 +34,7 @@ class FlxShader extends FNF {
         }
     }
 
-    @:noCompletion public function initGLforce() {
+    @:noCompletion private function initGLforce() {
        initGood(glFragmentSource, glVertexSource);
     }
     @:noCompletion private function initGood(glFragmentSource:String, glVertexSource:String) {
@@ -42,22 +42,34 @@ class FlxShader extends FNF {
         @:privateAccess
         var gl = __context.gl;
 	//openGl Version  
-	   //i think i made it more stable?
-	  
+	//i think i made it more stable?
+	#if android
+        var prefix = "#version 300 es\n";
+        #else
         var prefix = "#version 110\n"; 
-	  
+	#end 
+		
+        #if (js && html5)
+        prefix += (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
+        #else
         prefix += "#ifdef GL_ES\n"
             + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
                 + "precision highp float;\n"
                 + "#else\n"
                 + "precision mediump float;\n"
                 + "#endif\n" : "precision lowp float;\n")
-            + "#endif\n\n";
+            + "#endif\n\n"; 
+	  #end 
         
-
-       var vertex = prefix + glVertexSource;
-       var fragment = prefix + glFragmentSource;
-	    
+        #if android
+        prefix += 'out vec4 output_FragColor;\n';
+        var vertex = prefix + glVertexSource.replace("attribute", "in").replace("varying", "out").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
+        var fragment = prefix + glFragmentSource.replace("varying", "in").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
+        #else
+        var vertex = prefix + glVertexSource;
+        var fragment = prefix + glFragmentSource;
+	#end 
+		
        var id = vertex + fragment;
 		
 
