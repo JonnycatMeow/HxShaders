@@ -5,7 +5,7 @@ package shadertools;
 //Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2   
 
 import flixel.system.FlxAssets.FlxShader as FNF;
-
+import openfl.display.ShaderParameter;
 using StringTools;
 
 // goddamn prefix
@@ -36,7 +36,26 @@ class FlxShader extends FNF {
 
     @:noCompletion private function initGLforce() {
        initGood(glFragmentSource, glVertexSource);
+    } 
+    //idk what this does??
+    public function setValue(name:String, value:Dynamic) {
+        
+        if (Reflect.getProperty(data, name) != null) {
+            var d:ShaderParameter<Dynamic> = Reflect.getProperty(data, name);
+            Reflect.setProperty(d, "value", [value]);
+        }
     }
+
+    public function setValues(values:Map<String, Any>) {
+        if (values == null) return;
+        
+        var kInt = values.keys();
+        while(kInt.hasNext()) {
+            var key = kInt.next();
+            Reflect.setProperty(Reflect.getProperty(data, key), "value", [values[key]]);
+        }
+    } 
+	
     @:noCompletion private function initGood(glFragmentSource:String, glVertexSource:String) {
 		
         @:privateAccess
