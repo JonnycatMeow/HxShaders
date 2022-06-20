@@ -84,7 +84,7 @@ class FlxShader extends FNF {
         }
         else
         {
-            
+            @:privateAccess
             program = __context.createProgram(GLSL);
             
 
