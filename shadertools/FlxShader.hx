@@ -46,7 +46,7 @@ class FlxShader extends FNF {
 	#if android
         var prefix = "#version 300 es\n";
         #else
-        var prefix = "#version 110\n";  
+        var prefix = "#version 120\n";  
 	#end 
 		
         #if (js && html5)
