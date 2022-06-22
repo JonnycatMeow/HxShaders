@@ -4,13 +4,17 @@ package shadertools;
 //Modified by Jonnycat 
 //Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2   
 
-import flixel.system.FlxAssets.FlxShader as FNF;
-import openfl.display.ShaderParameter;
+import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
+
 using StringTools;
 
-// goddamn prefix
-class FlxShader extends FNF {
-
+class FlxShader extends OriginalFlxShader {
+    public var custom:Bool = false;
+    public var save:Bool = true;
+    public override function new(?save:Bool) {
+        if (save != null) this.save = save;
+        super();
+    }
     @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
@@ -34,40 +38,30 @@ class FlxShader extends FNF {
         }
     }
 
-    @:noCompletion private function initGLforce() {
-       initGood(glFragmentSource, glVertexSource);
-    } 
-    //idk what this does??
-    public function setValue(name:String, value:Dynamic) {
-        
-        if (Reflect.getProperty(data, name) != null) {
-            var d:ShaderParameter<Dynamic> = Reflect.getProperty(data, name);
-            Reflect.setProperty(d, "value", [value]);
-        }
+    public function initGLforce() {
+        if (!custom) initGood(glFragmentSource, glVertexSource);
     }
+    public function initGood(glFragmentSource:String, glVertexSource:String) {
+        // try {
 
-    public function setValues(values:Map<String, Any>) {
-        if (values == null) return;
-        
-        var kInt = values.keys();
-        while(kInt.hasNext()) {
-            var key = kInt.next();
-            Reflect.setProperty(Reflect.getProperty(data, key), "value", [values[key]]);
-        }
-    } 
-	
-    @:noCompletion private function initGood(glFragmentSource:String, glVertexSource:String) {
+        // } catch(e:Exception) {
+        //     trace(e);
+        //     trace(e.message);
+        //     trace(e.stack);
+        //     trace(e.details());
+        // }
 		
         @:privateAccess
         var gl = __context.gl;
-	//openGl Version  
-	//i think i made it more stable?
-	#if android
+		
+		
+
+        #if android
         var prefix = "#version 300 es\n";
         #else
-        var prefix = "#version 120\n";  
-	#end 
-		
+        var prefix = "#version 120\n";
+        #end
+
         #if (js && html5)
         prefix += (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
         #else
@@ -77,9 +71,10 @@ class FlxShader extends FNF {
                 + "#else\n"
                 + "precision mediump float;\n"
                 + "#endif\n" : "precision lowp float;\n")
-            + "#endif\n"; 
-	  #end 
-        
+            + "#endif\n\n";
+        #end
+
+
         #if android
         prefix += 'out vec4 output_FragColor;\n';
         var vertex = prefix + glVertexSource.replace("attribute", "in").replace("varying", "out").replace("texture2D", "texture").replace("gl_FragColor", "output_FragColor");
@@ -87,13 +82,14 @@ class FlxShader extends FNF {
         #else
         var vertex = prefix + glVertexSource;
         var fragment = prefix + glFragmentSource;
-	#end 
+        #end
+        
+        var id = vertex + fragment;
 		
-       var id = vertex + fragment;
-		
+		#if trace_everything trace('Should save: $save'); #end
 
         @:privateAccess
-        if (__context.__programs.exists(id))
+        if (__context.__programs.exists(id) && save)
         {   
             
 		    
@@ -103,7 +99,7 @@ class FlxShader extends FNF {
         }
         else
         {
-            @:privateAccess
+            
             program = __context.createProgram(GLSL);
             
 
@@ -115,9 +111,19 @@ class FlxShader extends FNF {
             
 
             @:privateAccess
-            __context.__programs.set(id, program);
+            if (save) __context.__programs.set(id, program);
         }
 		
+		#if trace_everything
+			/*
+			@:privateAccess
+			trace(__context);
+			@:privateAccess
+			trace(__context.__programs);
+			@:privateAccess
+			trace(program.__glProgram);
+			*/
+		#end
 		
         if (program != null)
         {
