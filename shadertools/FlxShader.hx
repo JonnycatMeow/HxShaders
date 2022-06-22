@@ -77,7 +77,7 @@ class FlxShader extends FNF {
                 + "#else\n"
                 + "precision mediump float;\n"
                 + "#endif\n" : "precision lowp float;\n")
-            + "#endif\n\n"; 
+            + "#endif\n"; 
 	  #end 
         
         #if android
