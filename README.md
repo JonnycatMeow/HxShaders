@@ -7,8 +7,8 @@
  how to apply it to your Friday Night Funkin Mod with shaders 
  
 1. Install this haxelib by going haxelib git shadertools and also get the link for this as well. 
-2. Paste this `<haxelib name="HxShaders"/>` or if your compiling to html5 you can do ```<haxelib name="HxShaders" if="desktop"/>``` into your project.xml right below the text where it says ui packages.
-3. Go to your shader that is not working and import it by doing `import shadertools.FlxShader;` and delete the line of code that says `import flixel.system.FlxAssets.FlxShader;` since you won't really need it .  
+2. Paste this `<haxelib name="HxShaders"/>` right below the text where it says ui packages.
+3. Go to your shader that is not working and import it by doing `import tools.FlxShader;` and delete the line of code that says `import flixel.system.FlxAssets.FlxShader;` since you won't really need it .  
 3. Then that is it you have finally fix your shader i hope you fix your Shaders. 
 
  CREDITS: 
