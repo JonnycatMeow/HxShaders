@@ -71,7 +71,7 @@ class FlxShader extends OriginalFlxShader {
                 + "#else\n"
                 + "precision mediump float;\n"
                 + "#endif\n" : "precision lowp float;\n")
-            + "#endif\n";
+            + "#endif\n\n";
         #end
 
 
