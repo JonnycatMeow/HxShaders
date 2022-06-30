@@ -1,4 +1,4 @@
-package shadertools; 
+package tools; 
 
 //testing jigsaw version https://github.com/jigsaw-4277821/VsDave-With-Android-Support/blob/main/source/FlxShader.hx 
 //Modified by Jonnycat 
