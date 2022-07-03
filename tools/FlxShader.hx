@@ -10,7 +10,7 @@ using StringTools;
 
 class FlxShader extends OriginalFlxShader {
     public var custom:Bool = false;
-    public var save:Bool = true;
+    public var save:Bool = false;
     public override function new(?save:Bool) {
         if (save != null) this.save = save;
         super();
@@ -56,7 +56,7 @@ class FlxShader extends OriginalFlxShader {
 		
 		
 
-        #if android
+        #if (android||web)
         var prefix = "#version 300 es\n";
         #else
         var prefix = "#version 120\n";
