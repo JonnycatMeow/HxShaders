@@ -8,7 +8,8 @@ import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
 
 using StringTools;
 
-class FlxShader extends OriginalFlxShader {
+class FlxShader extends OriginalFlxShader { 
+	
    @:noCompletion private override function __initGL():Void
 	{
 		if (__glSourceDirty || __paramBool == null)
