@@ -20,5 +20,3 @@
  
  Jobf:(For making the FlxShadertoy) 
  https://github.com/jobf
- Jigsaw: (for the FlxShader) 
- https://github.com/jigsaw-4277821
