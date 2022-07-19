@@ -10,8 +10,8 @@ using StringTools;
 
 class FlxShader extends OriginalFlxShader { 
 	
-   @:noCompletion private override function __initGL():Void
-	{
+               private override function __initGL():Void
+	    {
 		if (__glSourceDirty || __paramBool == null)
 		{
 			__glSourceDirty = false;
@@ -31,7 +31,7 @@ class FlxShader extends OriginalFlxShader {
 		{
 			initGLforce();
 		}
-	}
+	    }
 
 	public function initGLforce()
 	{
