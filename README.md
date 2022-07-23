@@ -7,7 +7,7 @@
 how to apply it to your Friday Night Funkin Mod with shaders 
  
 1. Paste this `<haxelib name="HxShaders"/>` in your project.xml 
-3. Go to your shader code. Remove the code that says ```import flixel.system.FlxAssets.FlxShader;``` and replace it with ```import shadertools.FlxShader;``` 
+3. Go to your shader code. Remove the code that says ```import flixel.system.FlxAssets.FlxShader;``` and replace it with ```import tools.FlxShader;``` 
 
  CREDITS: 
  YoshiCrafter29:(For da FlxFixedShader) 
