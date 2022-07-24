@@ -40,24 +40,21 @@ class FlxShader extends OriginalFlxShader {
 
      @:noCompletion public function __initGLforce() {
         
-        var gl = __context.gl;
+                var gl = __context.gl;
 
       
-        var prefix = "#version 120\n";
+                var prefix = "#version 120\n";
         
-		prefix += "#ifdef GL_ES
-		"
+		prefix += "#ifdef GL_ES\n"
+		
 		+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 		precision highp float;
 		#else
 		precision mediump float;
-		#endif" : "precision lowp float;")
-		+ "
-		#endif
-		";
-
-
-       
+		#endif\n" : "precision lowp float;\n")
+		+ "#endif\n";
+		
+		
         var vertex = prefix + glVertexSource;
         var fragment = prefix + glFragmentSource;
        
