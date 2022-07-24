@@ -34,11 +34,11 @@ class FlxShader extends OriginalFlxShader {
 
         if (__context != null && program == null)
         {
-            initGLforce();
+            __initGLforce();
         }
     }
 
-    public function initGLforce() {
+     @:noCompletion public function __initGLforce() {
         
         var gl = __context.gl;
 
