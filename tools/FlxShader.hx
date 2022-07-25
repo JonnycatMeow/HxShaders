@@ -6,6 +6,7 @@ package tools;
 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
 import openfl.display3D.Program3D; 
+import openfl.display._internal.ShaderBuffer;
 
 using StringTools;
 
