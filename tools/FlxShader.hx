@@ -15,7 +15,9 @@ using StringTools;
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
 class FlxShader extends OriginalFlxShader {
-    @:noCompletion private override function __initGL():Void
+	
+	
+    @:noCompletion public function initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
