@@ -43,16 +43,16 @@ class FlxShader extends OriginalFlxShader {
                 var gl = __context.gl;
 
       
-                var prefix = "#version 120\n";
+                var prefix = "#version 120";
         
-		prefix += "#ifdef GL_ES\n"
+		prefix += "#ifdef GL_ES"
 		
 		+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 		precision highp float;
 		#else
 		precision mediump float;
-		#endif\n" : "precision lowp float;\n")
-		+ "#endif\n";
+		#endif" : "precision lowp float;")
+		+ "#endif";
 		
 		
         var vertex = prefix + glVertexSource;
