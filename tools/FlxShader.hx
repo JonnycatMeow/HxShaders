@@ -61,24 +61,24 @@ class FlxShader extends OriginalFlxShader {
                 //Add prefix after #version directive if one is present
 		var vertex;
 		var fragment;
-		if(vertexSource.indexOf('#version')==0)
+		if(glVertexSource.indexOf('#version')==0)
 		{
-			var vsFirstNewline = vertexSource.indexOf('\n');
-			vertex = vertexSource.substr(0, vsFirstNewline)+"\n"+prefix+vertexSource.substr(vsFirstNewline);
+			var vsFirstNewline = glVertexSource.indexOf('\n');
+			vertex = glVertexSource.substr(0, vsFirstNewline)+"\n"+prefix+glVertexSource.substr(vsFirstNewline);
 		}
 		else
 		{
-			vertex = prefix + vertexSource;
+			vertex = prefix + glVertexSource;
 		}
 
-		if(fragmentSource.indexOf('#version')==0)
+		if(glFragmentSource.indexOf('#version')==0)
 		{
-			var fsFirstNewline = fragmentSource.indexOf('\n');
-			fragment = fragmentSource.substr(0, fsFirstNewline)+"\n"+prefix+fragmentSource.substr(fsFirstNewline);
+			var fsFirstNewline = glFragmentSource.indexOf('\n');
+			fragment = glFragmentSource.substr(0, fsFirstNewline)+"\n"+prefix+glFragmentSource.substr(fsFirstNewline);
 		}
 		else
 		{
-			fragment = prefix + fragmentSource;
+			fragment = prefix + glFragmentSource;
 		}
        
 
