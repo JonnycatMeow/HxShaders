@@ -6,7 +6,6 @@ package tools;
 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
 import openfl.display3D.Program3D; 
-import openfl.display._internal.ShaderBuffer;
 
 using StringTools;
 
@@ -46,7 +45,7 @@ class FlxShader extends OriginalFlxShader {
                 var gl = __context.gl;
 
       
-                var prefix = "#version 120";
+                var prefix = "#version 120\n";
         
 		prefix += "#ifdef GL_ES"
 		
