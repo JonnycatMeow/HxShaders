@@ -15,9 +15,7 @@ using StringTools;
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
 class FlxShader extends OriginalFlxShader {
-	
-	
-    @:noCompletion public function initGL():Void
+    @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
@@ -36,29 +34,52 @@ class FlxShader extends OriginalFlxShader {
 
         if (__context != null && program == null)
         {
-            __initGLforce();
+            initGLforce();
         }
     }
 
-     @:noCompletion public function __initGLforce() {
+    public function initGLforce() {
         
-                var gl = __context.gl;
+        var gl = __context.gl;
 
       
-                var prefix = "#version 120\n";
+        var prefix = "#version 120\n";
         
-		prefix += "#ifdef GL_ES"
-		
+		prefix += "#ifdef GL_ES
+		"
 		+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 		precision highp float;
 		#else
 		precision mediump float;
 		#endif" : "precision lowp float;")
-		+ "#endif";
-		
-		
-        var vertex = prefix + glVertexSource;
-        var fragment = prefix + glFragmentSource;
+		+ "
+		#endif
+		";
+
+
+       
+                //Add prefix after #version directive if one is present
+		var vertex;
+		var fragment;
+		if(vertexSource.indexOf('#version')==0)
+		{
+			var vsFirstNewline = vertexSource.indexOf('\n');
+			vertex = vertexSource.substr(0, vsFirstNewline)+"\n"+prefix+vertexSource.substr(vsFirstNewline);
+		}
+		else
+		{
+			vertex = prefix + vertexSource;
+		}
+
+		if(fragmentSource.indexOf('#version')==0)
+		{
+			var fsFirstNewline = fragmentSource.indexOf('\n');
+			fragment = fragmentSource.substr(0, fsFirstNewline)+"\n"+prefix+fragmentSource.substr(fsFirstNewline);
+		}
+		else
+		{
+			fragment = prefix + fragmentSource;
+		}
        
 
 
@@ -72,9 +93,7 @@ class FlxShader extends OriginalFlxShader {
         else
         {
             program = __context.createProgram(GLSL);
-
-            // TODO
-            // program.uploadSources (vertex, fragment);
+            
         
             program.__glProgram = __createGLProgram(vertex, fragment);
 
