@@ -12,5 +12,4 @@ how to apply it to your Friday Night Funkin Mod with shaders
 # Credits
 - [YoshiCrafter29](https://github.com/YoshiCrafter29) -  For da FlxShader
 - [Jobf](https://github.com/jobf) -  For making the FlxShadertoy 
-- [ShadowMario](https://github.com/ShadowMario) -  For making the FlxRuntimeShader
 
