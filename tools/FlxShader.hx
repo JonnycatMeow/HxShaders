@@ -14,8 +14,7 @@ using StringTools;
 @:access(openfl.display.ShaderInput)
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
-class FlxShader extends OriginalFlxShader {  
-   
+class FlxShader extends OriginalFlxShader {
     @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
@@ -35,93 +34,137 @@ class FlxShader extends OriginalFlxShader {
 
         if (__context != null && program == null)
         {
-            var prefix = "#version 120\n";
+            initGLforce();
+        }
+    }
 
-            var gl = __context.gl;
+    public function initGLforce() {
+        
+        var gl = __context.gl;
 
-			prefix += "#ifdef GL_ES
-				"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-				precision highp float;
-				#else
-				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "
-				#endif
-				";
+      
+        var prefix = "#version 120\n";
+        
+		prefix += "#ifdef GL_ES
+		"
+		+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+		precision highp float;
+		#else
+		precision mediump float;
+		#endif" : "precision lowp float;")
+		+ "
+		#endif
+		";
 
-			var vertex = prefix + glVertexSource;
-			var fragment = prefix + glFragmentSource;
 
-			var id = vertex + fragment;
+       
+        //Add prefix after #version directive if one is present
+		var vertex;
+		var fragment;
+		if(glVertexSource.indexOf('#version')==0)
+		{
+			var vsFirstNewline = glVertexSource.indexOf('\n');
+			vertex = glVertexSource.substr(0, vsFirstNewline)+"\n"+prefix+glVertexSource.substr(vsFirstNewline);
+		}
+		else
+		{
+			vertex = prefix + glVertexSource;
+		}
 
-			if (__context.__programs.exists(id))
-			{
-				program = __context.__programs.get(id);
-			}
-			else
-			{
-				program = __context.createProgram(GLSL);
+		if(glFragmentSource.indexOf('#version')==0)
+		{
+			var fsFirstNewline = glFragmentSource.indexOf('\n');
+			fragment = glFragmentSource.substr(0, fsFirstNewline)+"\n"+prefix+glFragmentSource.substr(fsFirstNewline);
+		}
+		else
+		{
+			fragment = prefix + glFragmentSource;
+		}
+       
 
-				// TODO
-				// program.uploadSources (vertex, fragment);
-				program.__glProgram = __createGLProgram(vertex, fragment);
 
-				__context.__programs.set(id, program);
-			}
+        var id = vertex + fragment;
+       
+        if (__context.__programs.exists(id))
+        {   
+            
+            program = __context.__programs.get(id);
+        }
+        else
+        {
+            program = __context.createProgram(GLSL);
+            
+        
+            program.__glProgram = __createGLProgram(vertex, fragment);
 
-			if (program != null)
-			{
-				glProgram = program.__glProgram;
+        
+            __context.__programs.set(id, program);
+        }
 
-				for (input in __inputBitmapData)
-				{
-					if (input.__isUniform)
-					{
-						input.index = gl.getUniformLocation(glProgram, input.name);
-					}
-					else
-					{
-						input.index = gl.getAttribLocation(glProgram, input.name);
-					}
-				}
+        if (program != null)
+        {
+           
+            glProgram = program.__glProgram;
 
-				for (parameter in __paramBool)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
+            for (input in __inputBitmapData)
+            {
+              
+                if (input.__isUniform)
+                {
+                 
+                    input.index = gl.getUniformLocation(glProgram, input.name);
+                }
+                else
+                {
+                   
+                    input.index = gl.getAttribLocation(glProgram, input.name);
+                }
+            }
 
-				for (parameter in __paramFloat)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
+            for (parameter in __paramBool)
+            {
+                
+                if (parameter.__isUniform)
+                {
+                    
+                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                }
+                else
+                {
+                   
+                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                }
+            }
 
-				for (parameter in __paramInt)
-				{
-					if (parameter.__isUniform)
-					{
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-			}
+            for (parameter in __paramFloat)
+            {
+               
+                if (parameter.__isUniform)
+                {
+                   
+                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                }
+                else
+                {
+                    
+                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                }
+            }
+
+            for (parameter in __paramInt)
+            {
+               
+                if (parameter.__isUniform)
+                {
+                    
+                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                }
+                else
+                {
+                  
+                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                }
+            }
         }
     }
 }
