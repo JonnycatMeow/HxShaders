@@ -486,8 +486,8 @@ class AGALConverter
 		glsl.add("// AGAL " + ((programType == ProgramType.VERTEX) ? "vertex" : "fragment") + " shader\n");
 
 		if (limitedProfile)
-		{
-			glsl.add("#version 100\n");
+		{       //opengl es versions
+			glsl.add("#version 100\n"); 
 
 			// Required to set the default precision of vectors
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
@@ -503,7 +503,60 @@ class AGALConverter
 		else
 		{
 			glsl.add("#version 130\n");
-		}
+		} 
+		else
+		{
+			glsl.add("#version 140\n");
+		} 
+		else
+		{
+			glsl.add("#version 150\n");
+		} 
+		else
+		{
+			glsl.add("#version 330\n");
+		} 
+		else
+		{
+			glsl.add("#version 400\n");
+		} 
+		else
+		{
+			glsl.add("#version 410\n");
+		} 
+		else
+		{
+			glsl.add("#version 420\n");
+		} 
+		else
+		{
+			glsl.add("#version 430\n");
+		} 
+		else
+		{
+			glsl.add("#version 440\n");
+		} 
+		else
+		{
+			glsl.add("#version 450\n");
+		} 
+		else
+		{
+			glsl.add("#version 460\n");
+		} 
+		else //opengl es versions
+		{
+			glsl.add("#version 300 es\n");
+		}  
+		else //opengl es versions
+		{
+			glsl.add("#version 310 es\n");
+		}  
+		else //opengl es versions
+		{
+			glsl.add("#version 320 es\n");
+		} 
+		
 
 		glsl.add(map.toGLSL(false));
 
