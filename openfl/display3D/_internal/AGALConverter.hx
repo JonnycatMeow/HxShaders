@@ -493,7 +493,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		}
 		else
@@ -503,7 +505,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else 
@@ -513,7 +517,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -523,7 +529,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -533,7 +541,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+            glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -543,7 +553,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -553,7 +565,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		}    
 		else
@@ -563,7 +577,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -573,7 +589,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -583,7 +601,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -593,7 +613,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -603,7 +625,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else
@@ -613,7 +637,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		else //opengl es versions
@@ -623,7 +649,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		}  
 		else //opengl es versions
@@ -633,7 +661,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		}  
 		else //opengl es versions
@@ -643,7 +673,9 @@ class AGALConverter
 			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
 			glsl.add("precision highp float;\n");
 			glsl.add("#else\n");
-			glsl.add("precision mediump float;\n");
+			glsl.add("precision mediump float;\n"); 
+			glsl.add("#else\n");
+			glsl.add("precision lowp float;\n");
 			glsl.add("#endif\n");
 		} 
 		
