@@ -13,3 +13,6 @@ how to apply it to your Friday Night Funkin Mod with shaders
 - [YoshiCrafter29](https://github.com/YoshiCrafter29) -  For da FlxShader
 - [Jobf](https://github.com/jobf) -  For making the FlxShadertoy 
 
+# How to tell which version of opengl is supported? 
+
+install glview on mac app store to see if the version is compatibile
