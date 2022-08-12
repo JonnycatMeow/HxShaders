@@ -498,63 +498,153 @@ class AGALConverter
 		}
 		else
 		{
-			glsl.add("#version 120\n");
+			glsl.add("#version 120\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
+		} 
+		else 
+		{
+			glsl.add("#version 130\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 130\n");
+			glsl.add("#version 140\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 140\n");
+			glsl.add("#version 150\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 150\n");
+			glsl.add("#version 330\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 330\n");
+			glsl.add("#version 400\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
+		}    
+		else
+		{
+			glsl.add("#version 410\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 400\n");
+			glsl.add("#version 420\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 410\n");
+			glsl.add("#version 430\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 420\n");
+			glsl.add("#version 440\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 430\n");
+			glsl.add("#version 450\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else
 		{
-			glsl.add("#version 440\n");
-		} 
-		else
-		{
-			glsl.add("#version 450\n");
-		} 
-		else
-		{
-			glsl.add("#version 460\n");
+			glsl.add("#version 460\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		else //opengl es versions
 		{
-			glsl.add("#version 300 es\n");
+			glsl.add("#version 300 es\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		}  
 		else //opengl es versions
 		{
-			glsl.add("#version 310 es\n");
+			glsl.add("#version 310 es\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		}  
 		else //opengl es versions
 		{
-			glsl.add("#version 320 es\n");
+			glsl.add("#version 320 es\n"); 
+			// Required to set the default precision of vectors
+			glsl.add("#ifdef GL_FRAGMENT_PRECISION_HIGH\n");
+			glsl.add("precision highp float;\n");
+			glsl.add("#else\n");
+			glsl.add("precision mediump float;\n");
+			glsl.add("#endif\n");
 		} 
 		
 
