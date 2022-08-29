@@ -16,3 +16,12 @@ how to apply it to your Friday Night Funkin Mod with shaders
 # How to tell which version of opengl is supported? 
 
 install glview on mac app store to see if the version is compatibile
+ 
+ 
+ # HxShaders is Deprecated 
+ 
+ please use masterErics openfl 
+ 
+ haxelib remove openfl  
+ 
+ haxelib git openfl https://github.com/MasterEric/openfl.git
