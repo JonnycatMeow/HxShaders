@@ -5,8 +5,9 @@ package tools;
 //Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2   
 
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
-import openfl.display3D.Program3D; 
-import openfl.display3D._internal.AGALConverter;
+import openfl.display3D.Program3D;  
+import flixel.graphics.tile.FlxGraphicsShader; 
+import openfl.display.GraphicsShader;
 using StringTools;
 
 @:access(openfl.display3D.Context3D)
@@ -14,7 +15,50 @@ using StringTools;
 @:access(openfl.display.ShaderInput)
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
-class FlxShader extends OriginalFlxShader {
+class FlxShader extends OriginalFlxShader {  
+
+    /**
+		Get or set the GLSL version used in the header when compiling with GLSL.
+
+		Defaults to `120`
+	**/
+	@:isVar public var glVersion(get, set):Int;  
+    
+    @:noCompletion private var __glVersion:Int; 
+
+    //i stole some of the code from MasterEric
+    @:noCompletion private function get_glVersion():Int
+        {
+            return __glVersion;
+        } 
+
+        @:noCompletion private function set_glVersion(value:Int):Int
+            {
+                if (value != __glVersion)
+                {
+                    __glSourceDirty = true;
+                }
+        
+                return __glVersion = value;
+            }  
+
+            @:noCompletion private function __buildSourcePrefix():String
+                {
+                    return "#version "
+                        + __glVersion
+                        + "
+                            #ifdef GL_ES
+                            "
+                        + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+                                precision highp float;
+                            #else
+                                precision mediump float;
+                            #endif" : "precision lowp float;")
+                        + "
+                            #endif
+                            ";
+                }
+
     @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
@@ -30,141 +74,86 @@ class FlxShader extends OriginalFlxShader {
             __processGLData(glVertexSource, "attribute");
             __processGLData(glVertexSource, "uniform");
             __processGLData(glFragmentSource, "uniform");
-        }
-    }  
-
-        if (__context != null && program == null)
-        {  
-
-            var gl = __context.gl;
-
-       
-            //Add prefix after #version directive if one is present
-            var vertex;
-            var fragment;
-            if(glVertexSource.indexOf('#version')==0)
-            {
-                var vsFirstNewline = glVertexSource.indexOf('\n');
-                vertex = glVertexSource.substr(0, vsFirstNewline)+"\n"+prefix+glVertexSource.substr(vsFirstNewline);
-            }
-            else
-            {
-                vertex = __buildSourcePrefix() + glVertexSource;
-            }
-    
-            if(glFragmentSource.indexOf('#version')==0)
-            {
-                var fsFirstNewline = glFragmentSource.indexOf('\n');
-                fragment = glFragmentSource.substr(0, fsFirstNewline)+"\n"+prefix+glFragmentSource.substr(fsFirstNewline);
-            }
-            else
-            {
-                fragment = __buildSourcePrefix() + glFragmentSource;
-            }
-           
-    
-    
-            var id = vertex + fragment;
-           
-            if (__context.__programs.exists(id))
-            {   
-                
-                program = __context.__programs.get(id);
-            }
-            else
-            {
-                program = __context.createProgram(GLSL);
-                
-            
-                program.__glProgram = __createGLProgram(vertex, fragment);
-    
-            
-                __context.__programs.set(id, program);
-            }
-    
-            if (program != null)
-            {
-               
-                glProgram = program.__glProgram;
-    
-                for (input in __inputBitmapData)
-                {
-                  
-                    if (input.__isUniform)
-                    {
-                     
-                        input.index = gl.getUniformLocation(glProgram, input.name);
-                    }
-                    else
-                    {
-                       
-                        input.index = gl.getAttribLocation(glProgram, input.name);
-                    }
-                }
-    
-                for (parameter in __paramBool)
-                {
-                    
-                    if (parameter.__isUniform)
-                    {
-                        
-                        parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                    }
-                    else
-                    {
-                       
-                        parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                    }
-                }
-    
-                for (parameter in __paramFloat)
-                {
-                   
-                    if (parameter.__isUniform)
-                    {
-                       
-                        parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                    }
-                    else
-                    {
-                        
-                        parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                    }
-                }
-    
-                for (parameter in __paramInt)
-                {
-                   
-                    if (parameter.__isUniform)
-                    {
-                        
-                        parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                    }
-                    else
-                    {
-                      
-                        parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                    }
-                }
-            }
-            
         } 
-       //Thx MasterEric
-        @:noCompletion private function __buildSourcePrefix():String
-            {
-                    return "#version 130"
-                    + "
-                        #ifdef GL_ES
-                        "
-                    + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-                            precision highp float;
-                        #else
-                            precision mediump float;
-                        #endif" : "precision lowp float;")
-                    + "
-                        #endif
-                        ";
-            }
 
-   
+            if (__context != null && program == null)
+            {
+                var gl = __context.gl;
+    
+                var vertex = __buildSourcePrefix() + glVertexSource;
+                var fragment = __buildSourcePrefix() + glFragmentSource;
+    
+                var id = vertex + fragment;
+    
+                if (__context.__programs.exists(id))
+                {
+                    program = __context.__programs.get(id);
+                }
+                else
+                {
+                    program = __context.createProgram(GLSL);
+    
+                    // TODO
+                    // program.uploadSources (vertex, fragment);
+                    program.__glProgram = __createGLProgram(vertex, fragment);
+    
+                    __context.__programs.set(id, program);
+                }
+    
+                if (program != null)
+                {
+                    glProgram = program.__glProgram;
+    
+                    for (input in __inputBitmapData)
+                    {
+                        if (input.__isUniform)
+                        {
+                            input.index = gl.getUniformLocation(glProgram, input.name);
+                        }
+                        else
+                        {
+                            input.index = gl.getAttribLocation(glProgram, input.name);
+                        }
+                    }
+    
+                    for (parameter in __paramBool)
+                    {
+                        if (parameter.__isUniform)
+                        {
+                            parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                        }
+                        else
+                        {
+                            parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                        }
+                    }
+    
+                    for (parameter in __paramFloat)
+                    {
+                        if (parameter.__isUniform)
+                        {
+                            parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                        }
+                        else
+                        {
+                            parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                        }
+                    }
+    
+                    for (parameter in __paramInt)
+                    {
+                        if (parameter.__isUniform)
+                        {
+                            parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+                        }
+                        else
+                        {
+                            parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+                        }
+                    }
+                }
+            }
+    }   
+
+    
 }
