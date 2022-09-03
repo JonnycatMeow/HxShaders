@@ -15,7 +15,7 @@ using StringTools;
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
 class FlxShader extends OriginalFlxShader {
-    private override function __initGL():Void
+    function initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
@@ -38,31 +38,13 @@ class FlxShader extends OriginalFlxShader {
         }
     }
 
-    public function initGLforce() {
+       function initGLforce() {
         
         var gl = __context.gl;
-
-      
-        var prefix = "#version 120\n";
-        
-		prefix += "#ifdef GL_ES
-		"
-		+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-		precision highp float;
-		#else
-		precision mediump float;
-		#endif" : "precision lowp float;")
-		+ "
-		#endif
-		";
-
-
        
-        var vertex = prefix + glVertexSource;
-        var fragment = prefix + glFragmentSource;
+        var vertex = buildSourceVersion() + glVertexSource;
+        var fragment = buildSourceVersion() + glFragmentSource;
        
-
-
         var id = vertex + fragment;
        
         if (__context.__programs.exists(id))
@@ -148,5 +130,21 @@ class FlxShader extends OriginalFlxShader {
                 }
             }
         }
-    }
+    } 
+	         //thx master eric for da code
+	        function buildSourceVersion():String
+                {
+                        return "#version 120"
+                        + "
+                            #ifdef GL_ES
+                            "
+                        + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+                                precision highp float;
+                            #else
+                                precision mediump float;
+                            #endif" : "precision lowp float;")
+                        + "
+                            #endif
+                            ";
+                }
 }
