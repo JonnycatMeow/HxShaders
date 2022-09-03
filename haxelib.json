@@ -4,7 +4,7 @@
   "license": "MIT",
   "tags": ["mod","game","fnf","shaders","Shaderfix"],
   "description": "HxShaders Allows you to add values in your uniforms. It allows you to do whole numbers witout it crashing on macos,Android,Linux and Html5",
-  "version": "3.0.0",
-  "releasenote": "Fixed the lag",
+  "version": "5.2.0",
+  "releasenote": "add the old version back and redid somethings",
   "contributors": ["McJonnycat"]
 }
