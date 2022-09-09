@@ -15,7 +15,7 @@ using StringTools;
 @:access(openfl.display.ShaderParameter)
 // goddamn prefix
 class FlxShader extends OriginalFlxShader {
-    function initGL():Void
+    @:noCompletion function initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
@@ -38,7 +38,7 @@ class FlxShader extends OriginalFlxShader {
         }
     }
 
-       function initGLforce() {
+       @:noCompletion function initGLforce() {
         
         var gl = __context.gl;
        
@@ -132,7 +132,7 @@ class FlxShader extends OriginalFlxShader {
         }
     } 
 	         //thx master eric for da code
-	        function buildSourceVersion():String
+	        @:noCompletion function buildSourceVersion():String
                 {
                         return "#version 120"
                         + "
