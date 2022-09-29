@@ -10,8 +10,9 @@ how to apply it to your Friday Night Funkin Mod with shaders
 3. Go to your shader code. Remove the code that says ```import flixel.system.FlxAssets.FlxShader;``` and replace it with ```import tools.FlxShader;``` 
 
 # Credits
-- [YoshiCrafter29](https://github.com/YoshiCrafter29) -  For da FlxShader
-- [Jobf](https://github.com/jobf) -  For making the FlxShadertoy 
+- [YoshiCrafter29](https://github.com/YoshiCrafter29) -  For making the FlxShader.
+- [Jobf](https://github.com/jobf) -  For making the FlxShadertoy.
+- [MasterEric](https://github.com/MasterEric) -  For making the FlxRuntimeShader.
 
 # How to tell which version of opengl is supported? 
 
