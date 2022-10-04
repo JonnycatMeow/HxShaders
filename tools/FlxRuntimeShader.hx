@@ -1,4 +1,4 @@
-package flixel.addons.display;
+package tools;
 
 import flixel.system.FlxAssets.FlxShader;
 import lime.utils.Float32Array;
