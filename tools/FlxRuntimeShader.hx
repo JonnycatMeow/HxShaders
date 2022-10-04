@@ -267,7 +267,7 @@ class FlxRuntimeShader extends FlxShader
 			@:privateAccess
 			var gl = __context.gl;
 
-			var prefix = "#version 130";
+			var prefix = "#version 120";
 
 			#if (js && html5)
 			prefix += (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
