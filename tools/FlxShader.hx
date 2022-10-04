@@ -42,7 +42,7 @@ class FlxShader extends OriginalFlxShader {
         
         var gl = __context.gl; 
 	       
-         var prefix = "#version 130";
+         var prefix = "#version 120";
 
 			prefix += "#ifdef GL_ES
 				"
