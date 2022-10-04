@@ -1,9 +1,5 @@
 #  HxShaders
 
-
-![shadertools-removebg-preview](https://user-images.githubusercontent.com/82131956/162606227-51408eca-2ee8-410b-9769-a717b02a6857.png)
-
- 
 how to apply it to your Friday Night Funkin Mod with shaders 
  
 1. Paste this `<haxelib name="HxShaders"/>` in your project.xml 
