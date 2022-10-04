@@ -40,10 +40,23 @@ class FlxShader extends OriginalFlxShader {
 
        @:noCompletion private function initGLforce() {
         
-        var gl = __context.gl;
-       
-        var vertex = buildSourceVersion() + glVertexSource;
-        var fragment = buildSourceVersion() + glFragmentSource;
+        var gl = __context.gl; 
+	       
+         var prefix = "#version 130";
+
+			prefix += "#ifdef GL_ES
+				"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+				precision highp float;
+				#else
+				precision mediump float;
+				#endif" : "precision lowp float;")
+				+ "
+				#endif
+				";
+
+        var vertex = prefix + glVertexSource;
+        var fragment = prefix + glFragmentSource;
        
         var id = vertex + fragment;
        
@@ -131,20 +144,4 @@ class FlxShader extends OriginalFlxShader {
             }
         }
     } 
-	         //thx master eric for da code
-	        @:noCompletion private function buildSourceVersion():String
-                {
-                        return "#version 120"
-                        + "
-                            #ifdef GL_ES
-                            "
-                        + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-                                precision highp float;
-                            #else
-                                precision mediump float;
-                            #endif" : "precision lowp float;")
-                        + "
-                            #endif
-                            ";
-                }
 }
