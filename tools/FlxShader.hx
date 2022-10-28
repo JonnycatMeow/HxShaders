@@ -42,9 +42,10 @@ class FlxShader extends OriginalFlxShader {
         
         var gl = __context.gl; 
 	       
-         var prefix = "#version 120";
-
-			prefix += "#ifdef GL_ES
+                        #if desktop 
+			var prefix += " 
+                                  #version 120  
+                                  #ifdef GL_ES        
 				"
 				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 				precision highp float;
@@ -53,7 +54,21 @@ class FlxShader extends OriginalFlxShader {
 				#endif" : "precision lowp float;")
 				+ "
 				#endif
-				";
+				"; 
+	               #elseif android 
+			       var prefix += " 
+                                  #version 100 
+                                  #ifdef GL_ES        
+				"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+				precision highp float;
+				#else
+				precision mediump float;
+				#endif" : "precision lowp float;")
+				+ "
+				#endif
+				";  
+	               #end 
 
         var vertex = prefix + glVertexSource;
         var fragment = prefix + glFragmentSource;
