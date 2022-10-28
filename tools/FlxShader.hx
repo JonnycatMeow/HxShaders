@@ -43,7 +43,7 @@ class FlxShader extends OriginalFlxShader {
         var gl = __context.gl; 
 	       
                         #if desktop 
-			var prefix += " 
+			var prefix = " 
                                   #version 120  
                                   #ifdef GL_ES        
 				"
@@ -56,7 +56,7 @@ class FlxShader extends OriginalFlxShader {
 				#endif
 				"; 
 	               #elseif android 
-			       var prefix += " 
+			       var prefix = " 
                                   #version 100 
                                   #ifdef GL_ES        
 				"
