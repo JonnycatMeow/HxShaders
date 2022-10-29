@@ -57,7 +57,7 @@ class FlxShader extends OriginalFlxShader {
 				"; 
 	               #elseif android 
 			       var prefix = " 
-                                  #version 100 
+                                  #version 300 es
                                   #ifdef GL_ES        
 				"
 				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
