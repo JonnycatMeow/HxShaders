@@ -1,21 +1,18 @@
 package tools; 
-
-
-//Modified by Jonnycat 
-//Diffrent Versions of glsl https://en.wikipedia.org/wiki/OpenGL_Shading_Language#cite_note-2   
-
+import openfl.display3D.Program3D;
 import flixel.system.FlxAssets.FlxShader as OriginalFlxShader;
-import openfl.display3D.Program3D; 
 
 using StringTools;
+
+// goddamn prefix
 
 @:access(openfl.display3D.Context3D)
 @:access(openfl.display3D.Program3D)
 @:access(openfl.display.ShaderInput)
 @:access(openfl.display.ShaderParameter)
-// goddamn prefix
 class FlxShader extends OriginalFlxShader {
-    @:noCompletion public function initGL():Void
+
+    @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
@@ -34,129 +31,93 @@ class FlxShader extends OriginalFlxShader {
 
         if (__context != null && program == null)
         {
-            initGLforce();
+            var prefix = "#version 120\n";
+
+            var gl = __context.gl;
+
+			prefix += "#ifdef GL_ES
+				"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+				precision highp float;
+				#else
+				precision mediump float;
+				#endif" : "precision lowp float;")
+				+ "
+				#endif
+				";
+
+			var vertex = prefix + glVertexSource;
+			var fragment = prefix + glFragmentSource;
+
+			var id = vertex + fragment;
+
+			if (__context.__programs.exists(id))
+			{
+				program = __context.__programs.get(id);
+			}
+			else
+			{
+				program = __context.createProgram(GLSL);
+
+				// TODO
+				// program.uploadSources (vertex, fragment);
+				program.__glProgram = __createGLProgram(vertex, fragment);
+
+				__context.__programs.set(id, program);
+			}
+
+			if (program != null)
+			{
+				glProgram = program.__glProgram;
+
+				for (input in __inputBitmapData)
+				{
+					if (input.__isUniform)
+					{
+						input.index = gl.getUniformLocation(glProgram, input.name);
+					}
+					else
+					{
+						input.index = gl.getAttribLocation(glProgram, input.name);
+					}
+				}
+
+				for (parameter in __paramBool)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+
+				for (parameter in __paramFloat)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+
+				for (parameter in __paramInt)
+				{
+					if (parameter.__isUniform)
+					{
+						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
+					}
+					else
+					{
+						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
+					}
+				}
+			}
         }
     }
-
-       @:noCompletion public function initGLforce() {
-        
-        var gl = __context.gl; 
-	       
-                        #if desktop 
-			var prefix = " 
-                                  #version 120  
-                                  #ifdef GL_ES        
-				"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-				precision highp float;
-				#else
-				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "
-				#endif
-				"; 
-	               #elseif android 
-			       var prefix = " 
-                                  #version 300 es
-                                  #ifdef GL_ES        
-				"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-				precision highp float;
-				#else
-				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "
-				#endif
-				";  
-	               #end 
-
-        var vertex = prefix + glVertexSource;
-        var fragment = prefix + glFragmentSource;
-       
-        var id = vertex + fragment;
-       
-        if (__context.__programs.exists(id))
-        {   
-            
-            program = __context.__programs.get(id);
-        }
-        else
-        {
-            program = __context.createProgram(GLSL);
-
-            // TODO
-            // program.uploadSources (vertex, fragment);
-        
-            program.__glProgram = __createGLProgram(vertex, fragment);
-
-        
-            __context.__programs.set(id, program);
-        }
-
-        if (program != null)
-        {
-           
-            glProgram = program.__glProgram;
-
-            for (input in __inputBitmapData)
-            {
-              
-                if (input.__isUniform)
-                {
-                 
-                    input.index = gl.getUniformLocation(glProgram, input.name);
-                }
-                else
-                {
-                   
-                    input.index = gl.getAttribLocation(glProgram, input.name);
-                }
-            }
-
-            for (parameter in __paramBool)
-            {
-                
-                if (parameter.__isUniform)
-                {
-                    
-                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                }
-                else
-                {
-                   
-                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                }
-            }
-
-            for (parameter in __paramFloat)
-            {
-               
-                if (parameter.__isUniform)
-                {
-                   
-                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                }
-                else
-                {
-                    
-                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                }
-            }
-
-            for (parameter in __paramInt)
-            {
-               
-                if (parameter.__isUniform)
-                {
-                    
-                    parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-                }
-                else
-                {
-                  
-                    parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-                }
-            }
-        }
-    } 
 }
