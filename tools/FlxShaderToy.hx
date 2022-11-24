@@ -1,4 +1,4 @@
-package tools;
+package;
 
 import flixel.FlxG;
 import flixel.input.mouse.FlxMouse;
