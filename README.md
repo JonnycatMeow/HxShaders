@@ -8,7 +8,7 @@ how to apply it to your Friday Night Funkin Mod with shaders
 ```
 3. Remove the code that says  import flixel.system.FlxAssets.FlxShader; and replace it with 
 ```
-import tools.FlxShader;
+import FlxShader;
 ``` 
 
 # Credits
