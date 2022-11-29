@@ -4,7 +4,9 @@ import flixel.FlxG;
 import flixel.input.mouse.FlxMouse;
 import flixel.math.FlxPoint;
 #if FLX_DRAW_QUADS
-import openfl.display.GraphicsShader;
+import openfl.display.GraphicsShader;  
+
+using StringTools
 
 /**
 	An alternate FlxGraphicsShader that enables easy use of Shadertoy glsl programs in haxe flixel
@@ -15,7 +17,7 @@ class FlxShaderToy extends GraphicsShader
 	/**
 		copied from FlxGraphicsShader
 	**/
-	@:glVertexSource("
+	var glVertexSource:String = "
 		#pragma header
 		
 		attribute float alpha;
@@ -34,11 +36,11 @@ class FlxShaderToy extends GraphicsShader
 				openfl_ColorOffsetv = colorOffset / 255.0;
 				openfl_ColorMultiplierv = colorMultiplier;
 			}
-		}")
+		}"
 	/**
 		copied from FlxGraphicsShader with additional shader toy uniforms added
 	**/
-	@:glFragmentHeader("
+	var glFragmentHeader:String = "
 		// flixel specific uniforms
 		uniform bool hasTransform;
 		uniform bool hasColorTransform;
@@ -81,14 +83,14 @@ class FlxShaderToy extends GraphicsShader
         // uniform float iChannelTime[4]; todo !
         // uniform vec3 iChannelResolution[4]; ! todo
         // uniform sampler2D iChanneli; ! todo
-	")
+	"
 	/** 
 		note that we only have #pragma header here so that the header section is injected properly
 		the actual shader code is added when collateFragmentSource is called
 	**/
-	@:glFragmentSource("
+	var glFragmentSource:String = "
 		#pragma header
-	")
+	"
 	public function new(shaderToyFragment:String = "")
 	{
 		this.shaderToyFragment = shaderToyFragment.length > 0 ? shaderToyFragment : exampleShaderToyFragment;
@@ -104,7 +106,7 @@ class FlxShaderToy extends GraphicsShader
 	}
 
 	/** the default glsl function that shadertoy uses when you make a new one **/
-	var exampleShaderToyFragment = '
+	var exampleShaderToyFragment:String = "
 	void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	{
 		// Normalized pixel coordinates (from 0 to 1)
@@ -116,10 +118,10 @@ class FlxShaderToy extends GraphicsShader
 		// Output to screen
 		fragColor = vec4(col,1.0);
 	}
-	';
+	";
 
 	/** the main function that will convert openfl coordinate to shader toy compatible coord and calls the shader toy function **/
-	var mainFragment = '
+	var mainFragment:String = "
 		void main()
 		{
 			// set the color untouched (do nothing), 
@@ -137,7 +139,7 @@ class FlxShaderToy extends GraphicsShader
 			// then process gl_FragColor with our copy of the shader toy mainImage function
 			mainImage(gl_FragColor, fragCoord);
 		}
-	';
+	";
 
 	public var shaderToyFragment(default, null):String;
 
