@@ -10,9 +10,6 @@ import lime.utils.Float32Array;
 
 using StringTools;
 
-// goddamn prefix
-
-
 class FlxShader extends OriginalFlxShader  
 {  
 
