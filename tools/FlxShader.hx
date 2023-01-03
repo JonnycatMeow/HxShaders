@@ -35,7 +35,7 @@ public var glslVer:String = "120";
 
         if (__context != null && program == null)
         {
-            var prefix = "#version ${glslVer}\n";
+            var prefix = '#version ${glslVer}\n';
 
             @:privateAccess var gl = __context.gl;
 
