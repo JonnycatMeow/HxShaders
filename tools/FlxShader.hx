@@ -13,9 +13,12 @@ using StringTools;
 class FlxShader extends OriginalFlxShader  
 {  
 
-//shader version thank you codename engine 
+//shader version thank you codename engine  
+#if mac  
 public var glslVer:String = "120";
-
+#else 
+public var glslVer:String = "100"; //for other platforms!!!!
+#end 
 @:noCompletion private override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
