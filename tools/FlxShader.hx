@@ -7,7 +7,7 @@ import openfl.display.ShaderParameter;
 import openfl.display.ShaderParameterType;
 import openfl.display.ShaderInput;
 import lime.utils.Float32Array; 
-
+import openfl.display.GraphicsShader; 
 using StringTools;
 
 class FlxShader extends OriginalFlxShader  
