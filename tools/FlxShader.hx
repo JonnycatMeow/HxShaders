@@ -19,7 +19,7 @@ public var glslVer:String = "120";
 #else 
 public var glslVer:String = "100"; //for other platforms!!!!
 #end 
-@:noCompletion private override function __initGL():Void
+@:noCompletion override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
         {
@@ -133,7 +133,7 @@ public var glslVer:String = "100"; //for other platforms!!!!
     }
  
 
-	@:noCompletion private override function __processGLData(source:String, storageType:String):Void
+	@:noCompletion  override function __processGLData(source:String, storageType:String):Void
         {
             var lastMatch = 0, position, regex, name, type;
     
