@@ -153,7 +153,7 @@ public var glslVer:String = "100"; //for other platforms!!!!
     
                 if (StringTools.startsWith(name, "gl_"))
                 {
-                    continue;
+                    return;
                 }
     
                 var isUniform = (storageType == "uniform");
