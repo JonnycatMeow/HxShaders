@@ -17,7 +17,7 @@ class FlxShader extends OriginalFlxShader
 #if (mac||linux||windows)
 public var glslVer:String = "120";
 #elseif (android||iphone||web) 
-public var glslVer:String = "100"; //for other platforms!!!!
+public var glslVer:String = "100"; 
 #end 
 @:noCompletion override function __initGL():Void
     {
