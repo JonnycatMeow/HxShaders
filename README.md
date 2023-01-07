@@ -2,11 +2,11 @@
 
 how to apply it to your Friday Night Funkin Mod with shaders 
 
-1. install hmm  
+1. Install hmm  
 ``` 
 haxelib install hmm 
 ``` 
-2. install the haxelib
+2. Install the haxelib
 ```
 haxelib git hxShaders https://github.com/JonnycatMeow/hxShaders.git
 ```
