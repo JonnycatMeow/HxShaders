@@ -42,16 +42,13 @@ public var glslVer:String = "100";
 
             @:privateAccess var gl = __context.gl;
 
-			prefix += "#ifdef GL_ES
-				"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-				precision highp float;
-				#else
-				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "
-				#endif
-				";
+			prefix += "#ifdef GL_ES\n"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+					+ "precision highp float;\n"
+					+ "#else\n"
+					+ "precision mediump float;\n"
+					+ "#endif\n" : "precision lowp float;\n")
+				+ "#endif\n\n";
 
 			var vertex = prefix + glVertexSource;
 			var fragment = prefix + glFragmentSource;
