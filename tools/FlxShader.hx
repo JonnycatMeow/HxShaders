@@ -39,10 +39,25 @@ public var glslVer:String = "100";
         }
 
         if (__context != null && program == null)
-        {    
-			var vertex = getglslversion() + glVertexSource;
-			var fragment = getglslversion() + glFragmentSource;
-                         @:privateAccess var gl = __context.gl;
+        {
+            var prefix = '#version ${glslVer}\n';
+
+            @:privateAccess var gl = __context.gl;
+
+			prefix += "#ifdef GL_ES
+				"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+				precision highp float;
+				#else
+				precision mediump float;
+				#endif" : "precision lowp float;")
+				+ "
+				#endif
+				";
+
+			var vertex = prefix + glVertexSource;
+			var fragment = prefix + glFragmentSource;
+
 			var id = vertex + fragment;
             @:privateAccess 
 			if (__context.__programs.exists(id))
@@ -118,22 +133,7 @@ public var glslVer:String = "100";
 			}
         }
     }
-        
-	//got the idea from Master eric shader fix
-	@:noCompletion function getglslversion():Void  
-	{ 
-	    return '#version ${glslVer}\n' 
-		    
-	    + "#ifdef GL_ES\n"
-	    + (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
-					+ "precision highp float;\n"
-					+ "#else\n"
-					+ "precision mediump float;\n"
-					+ "#endif\n" : "precision lowp float;\n")
-				+ "#endif\n\n";
-	}
-	
-		
+ 
 
 	@:noCompletion  override function __processGLData(source:String, storageType:String):Void
         {
@@ -315,4 +315,3 @@ public var glslVer:String = "100";
 
 
 }
-	
