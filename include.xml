@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension>
 
-<source path="tools" />
+<source path="tools" /> 
+  
+  <section if="mac">
+		<!--Shader Stuff--> 
+		<dependency name="Metal.framework" /> 
+    <dependency name="OpenGL.framework" />
+	</section>
 
 </extension>
