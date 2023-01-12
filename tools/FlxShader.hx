@@ -39,7 +39,7 @@ public var glslVer:String = "100";
         }
 
         if (__context != null && program == null)
-        {.    
+        {    
 			var vertex = getglslversion() + glVertexSource;
 			var fragment = getglslversion() + glFragmentSource;
                          @:privateAccess var gl = __context.gl;
