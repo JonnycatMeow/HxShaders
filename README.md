@@ -4,11 +4,11 @@ how to apply it to your Friday Night Funkin Mod with shaders
 
 1. Install the haxelib
 ```
-haxelib git hxShaders https://github.com/JonnycatMeow/hxShaders.git
+haxelib git HxShaders https://github.com/JonnycatMeow/HxShaders.git
 ```
 2. Paste this in your project.xml 
 ```
-<haxelib name="hxShaders"/>  
+<haxelib name="HxShaders"/>  
 ``` 
 3. Remove the code that says  import flixel.system.FlxAssets.FlxShader; and replace it with 
 ```
