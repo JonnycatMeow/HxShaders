@@ -3,10 +3,9 @@
 
 <source path="tools" /> 
   
-  <section if="mac">
-  <!--Shader Stuff--> 
-  <dependency name="Metal.framework" /> 
-  <dependency name="OpenGL.framework" />
-  </section>
+<!--Dependency's--> 
+<dependency name="Metal.framework" if="mac"/> 
+<dependency name="OpenGL.framework" if="mac" />
+
 
 </extension>
