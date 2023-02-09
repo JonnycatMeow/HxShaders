@@ -14,6 +14,12 @@ haxelib git HxShaders https://github.com/JonnycatMeow/HxShaders.git
 ```
 import FlxShader;
 ``` 
+4. OPTIONAL IF YOU WANT OPENGL FRAMEWORK AND METAL FRAMWORK 
+``` 
+<!--Dependency's for opengl--> 
+<dependency name="Metal.framework" if="mac"/> 
+<dependency name="OpenGL.framework" if="mac" />  
+```
 
 # Credits
 - [YoshiCrafter29](https://github.com/YoshiCrafter29) -  For making the FlxShader.
