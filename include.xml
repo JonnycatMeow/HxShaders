@@ -2,10 +2,5 @@
 <extension>
 
 <source path="tools" /> 
-  
-<!--Dependency's--> 
-<dependency name="Metal.framework" if="mac"/> 
-<dependency name="OpenGL.framework" if="mac" />
-
 
 </extension>
