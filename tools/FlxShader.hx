@@ -38,20 +38,18 @@ public var glslVer:String = "100";
 
         if (__context != null && program == null)
         {
-            var prefix = '#version ${glslVer}\n';
 
             @:privateAccess var gl = __context.gl;
 
-			prefix += "#ifdef GL_ES
-				"
+			 //testing da shader version
+			var prefix = "#ifdef GL_ES\n" 
+                                + '#version ${glslVer}\n'
 				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 				precision highp float;
 				#else
 				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "
-				#endif
-				";
+				#endif\n" : "precision lowp float;\n")
+				+ "#endif\n";
 
 			var vertex = prefix + glVertexSource;
 			var fragment = prefix + glFragmentSource;
