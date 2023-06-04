@@ -13,12 +13,11 @@ using StringTools;
 class FlxShader extends OriginalFlxShader  
 {  
 
-//shader version thank you codename engine  
 #if (mac||linux||windows)
 public var glslVer:String = "120";
 #else
 public var glslVer:String = "100"; 
-#end 
+#end  
 @:noCompletion override function __initGL():Void
     {
         if (__glSourceDirty || __paramBool == null)
@@ -41,8 +40,8 @@ public var glslVer:String = "100";
 
             @:privateAccess var gl = __context.gl;
 
-			 //testing da shader version
-			var prefix = "#ifdef GL_ES\n" 
+			#if (mac||linux||windows)
+                        var prefix = "#ifdef GL_ES\n" 
                                 + '#version ${glslVer}\n'
 				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
 				precision highp float;
@@ -50,6 +49,16 @@ public var glslVer:String = "100";
 				precision mediump float;
 				#endif\n" : "precision lowp float;\n")
 				+ "#endif\n";
+                        #else
+                        var prefix = '#version ${glslVer}\n' 
+                                + "#ifdef GL_ES\n"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
+				precision highp float;
+				#else
+				precision mediump float;
+				#endif\n" : "precision lowp float;\n")
+				+ "#endif\n";
+                        #end
 
 			var vertex = prefix + glVertexSource;
 			var fragment = prefix + glFragmentSource;
