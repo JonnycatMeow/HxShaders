@@ -51,15 +51,19 @@ public var glslVer:String = "100";
 			var prefix = '#version ${glslVer}\n';
 
 			var gl = __context.gl;
-               // i added the GL_core_profile so that it could run higher opengl versions
-			    prefix += "#ifdef GL_ES"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH
-				#define GL_core_profile 
-				precision highp float;
-				#else
-				precision mediump float;
-				#endif" : "precision lowp float;")
-				+ "#endif";
+                        // i added the GL_core_profile so that it could run higher opengl versions
+			#if (js && html5)
+			var prefix = (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
+			#else
+			var prefix = "#ifdef GL_ES\n"
+				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+				        + "#define GL_core_profile\n"
+					+ "precision highp float;\n"
+					+ "#else\n"
+					+ "precision mediump float;\n"
+					+ "#endif\n" : "precision lowp float;\n")
+				+ "#endif\n\n";
+			#end
 
 			var vertex = prefix + glVertexSource;
 			var fragment = prefix + glFragmentSource;
