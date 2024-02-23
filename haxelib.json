@@ -1,10 +1,10 @@
 {
   "name": "HxShaders",
-  "url" : "https://github.com/ItsyourboyJonnycat/HxShaders",
+  "url" : "https://github.com/JonnycatMeow/HxShaders",
   "license": "MIT",
-  "tags": ["mod","game","fnf","shaders","Shaderfix"],
-  "description": "HxShaders Allows you to add values in your uniforms. It allows you to do whole numbers witout it crashing on macos,Android,Linux and Html5",
-  "version": "5.3.0",
-  "releasenote": "add the old version back and redid somethings",
+  "tags": ["mod","game","shaders"],
+  "description": "HxShaders Allows you to add values in your uniforms. It allows you to do whole numbers witout it crashing on macos,Linux and windows",
+  "version": "5.4.0",
+  "releasenote": "using the core version of opengl and renamed the FlxShader to JShader",
   "contributors": ["McJonnycat"]
 }
